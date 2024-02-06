@@ -1,5 +1,5 @@
 package com.app.entities;
 
 public enum RoleType {
-	USER, DRIVER
+	ROLE_USER, ROLE_DRIVER, ROLE_ADMIN
 }

@@ -1,24 +1,44 @@
 package com.app.controllers;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.app.dtos.RegisterDTO;
+import com.app.services.RegisterService;
+
+
 
 @RestController
 @RequestMapping("/register")
 public class RegisterController {
+	@Autowired
+	private RegisterService rservice;
+	
 	
 	@PostMapping("/signup")
-	public void signup() {
-		
+	public ResponseEntity<RegisterDTO> signup(@RequestBody RegisterDTO registerdto) {
+		System.out.println(registerdto);
+		return new ResponseEntity<RegisterDTO>(rservice.signup(registerdto), HttpStatus.CREATED); 
 	}
 	
 	@PostMapping("/signin")
 	public void signin() {
 		
+	}
+	
+	@GetMapping("/get")
+	public ResponseEntity<List<RegisterDTO>> getAllUsers() {
+		return new ResponseEntity<List<RegisterDTO>>(rservice.getAllUsers(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/logout")

@@ -39,5 +39,9 @@ public class State extends BaseEntity{
 		this.cities.remove(c);
 		c.setState(null);
 	}
+
+	public State(String state) {
+		this.state = state;
+	}
 	
 }

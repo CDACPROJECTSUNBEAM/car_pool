@@ -1,6 +1,7 @@
 package com.app.entities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.envers.Audited;
+import org.springframework.data.annotation.CreatedDate;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +28,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
+@Audited
 public class Register extends BaseEntity {
 	
 	@Column(name = "first_name", length = 45,  nullable = false)
@@ -51,6 +56,15 @@ public class Register extends BaseEntity {
 	
 	private LocalDate dob;
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@OneToMany(mappedBy = "driverId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	List<Vehicle> vehicles = new ArrayList<Vehicle>();
 	
@@ -65,5 +79,19 @@ public class Register extends BaseEntity {
 		this.vehicles.remove(v);
 		v.setDriverId(null);
 	}
+
+	public Register(String fname, String lname, String email, String password, String contact, GenderType gender,
+			RoleType role, LocalDate dob) {
+		this.fname = fname;
+		this.lname = lname;
+		this.email = email;
+		this.password = password;
+		this.contact = contact;
+		this.gender = gender;
+		this.role = role;
+		this.dob = dob;
+	}
+
+
 	
 }

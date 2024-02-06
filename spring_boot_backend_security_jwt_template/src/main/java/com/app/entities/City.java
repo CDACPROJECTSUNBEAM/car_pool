@@ -23,5 +23,12 @@ public class City extends BaseEntity{
 	@ManyToOne //Many Cities belong to single state
 	@JoinColumn(name = "state_id")
 	private State state;
+
+	public City(String city, State state) {
+		this.city = city;
+		this.state = state;
+	}
+	
+	
 	
 }

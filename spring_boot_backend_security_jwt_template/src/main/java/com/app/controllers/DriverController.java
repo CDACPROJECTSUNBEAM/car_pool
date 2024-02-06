@@ -13,13 +13,12 @@ public class DriverController {
 
 	@PostMapping("/addVehicle/{dId}")
 	public void addVehicle(@PathVariable int dId) {
-//		
+
 	}
-	
-	
+		
 	@PostMapping("/publishRide/{dId}")
 	public void publishRide(@PathVariable int dId) {
-//		
+
 	}
 	
 	@GetMapping("/rideRequests")
@@ -36,7 +35,5 @@ public class DriverController {
 	public void rejectRide() {
 		
 	}
-	
-	
 	
 }
