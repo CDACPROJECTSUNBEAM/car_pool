@@ -2,6 +2,8 @@ package com.app.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dtos.RegisterDTO;
+import com.app.dtos.SigninDTO;
 import com.app.services.RegisterService;
 
 
@@ -26,14 +29,15 @@ public class RegisterController {
 	
 	
 	@PostMapping("/signup")
-	public ResponseEntity<RegisterDTO> signup(@RequestBody RegisterDTO registerdto) {
+	public ResponseEntity<RegisterDTO> signup(@RequestBody @Valid RegisterDTO registerdto) {
 		System.out.println(registerdto);
 		return new ResponseEntity<RegisterDTO>(rservice.signup(registerdto), HttpStatus.CREATED); 
 	}
 	
 	@PostMapping("/signin")
-	public void signin() {
-		
+	public ResponseEntity<RegisterDTO> signin(@RequestBody SigninDTO signinDto) {
+		System.out.println(signinDto);
+		return new ResponseEntity<RegisterDTO>(rservice.signin(signinDto), HttpStatus.FOUND); 
 	}
 	
 	@GetMapping("/get")
@@ -47,8 +51,8 @@ public class RegisterController {
 	}
 	
 	@PutMapping("/updateProfile/{id}")
-	public void updateProfile(@PathVariable int id) {
-		
+	public ResponseEntity<RegisterDTO> updateProfile(@PathVariable Long id, @RequestBody RegisterDTO rdto) {
+		return new ResponseEntity<RegisterDTO>(rservice.updateProfile(id, rdto), HttpStatus.OK);
 	}
 	
 	
