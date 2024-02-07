@@ -63,4 +63,11 @@ public class DriverServiceImpl implements DriverService {
 		return mapper.map(vehicleEntity, VehicleDTO.class);
 	}
 
+	@Override
+	public VehicleDTO getVehicleByName(Long id, String car) {
+		Register driverEntity = registerRepo.findById(id).orElseThrow();
+		Vehicle vehicle = vRepo.getVehicle(driverEntity, car);
+		return mapper.map(vehicle, VehicleDTO.class);
+	}
+
 }

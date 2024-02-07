@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dtos.PublishRideDTO;
 import com.app.dtos.RegisterDTO;
+import com.app.dtos.VehicleDTO;
+import com.app.entities.Vehicle;
+import com.app.services.DriverService;
 import com.app.services.UserService;
 
 @RestController
@@ -21,7 +24,10 @@ public class UserController {
 	
 	@Autowired
 	private UserService uService;
-
+	
+	@Autowired
+	private DriverService dService;
+	
 	@GetMapping("/availableRides")
 	public ResponseEntity<List<PublishRideDTO>> getAvailableRides() {
 		return new ResponseEntity<List<PublishRideDTO>>(uService.getAvailableRides(), HttpStatus.OK);
@@ -36,6 +42,12 @@ public class UserController {
 	public void bookARide(@PathVariable int uId) {
 		
 	}
-
+	
+	@GetMapping("/vehicleDetails/{dId}/{car}")
+	public ResponseEntity<VehicleDTO> getVehicleByDriverIdAndCarName(@PathVariable Long dId, @PathVariable String car){
+		System.out.println(dId);
+		System.out.println(car);
+		return new ResponseEntity<VehicleDTO>(dService.getVehicleByName(dId, car), HttpStatus.OK);
+	}
 	
 }

@@ -10,4 +10,6 @@ public interface DriverService {
 	public RegisterDTO getDriverDetails(Long id);
 	
 	public VehicleDTO addVehicle(Long id, VehicleDTO vDto);
+	
+	public VehicleDTO getVehicleByName(Long id, String car);
 }
