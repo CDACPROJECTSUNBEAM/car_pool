@@ -18,7 +18,7 @@ public class DriverController {
 		
 	@PostMapping("/publishRide/{dId}")
 	public void publishRide(@PathVariable int dId) {
-
+		
 	}
 	
 	@GetMapping("/rideRequests")
