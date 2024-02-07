@@ -22,7 +22,7 @@ import com.app.services.RegisterService;
 
 
 @RestController
-@RequestMapping("/register")
+@RequestMapping("/api/auth")
 public class RegisterController {
 	@Autowired
 	private RegisterService rservice;

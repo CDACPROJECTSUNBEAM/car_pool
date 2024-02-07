@@ -1,13 +1,14 @@
 package com.app.dtos;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
 
 import com.app.entities.Register;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,39 +17,48 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
+
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class VehicleDTO {
+public class PublishRideDTO {
+
 	@JsonProperty(access = Access.READ_ONLY)
 	private Long id;
 	
-	@NotBlank(message = "Company name should not be null")
-	private String company;
+	@NotBlank(message = "Start City should not be null")
+	private String startCity;
 	
-	@NotBlank(message = "Model name should not be null")
-	private String model;
+	@NotBlank(message = "End City should not be null")
+	private String endCity;
 	
-	@NotBlank(message = "RC number should not be null")
-	@Size(min = 10, max = 10)
-	private String rcNumber;
+	@Future
+	private LocalDate doj;
 	
-	@Past
-	private LocalDate dor;
+	@Future
+	private LocalDate eoj;
 	
-	@NotBlank(message = "Licence should not be null")
-	@Size(min = 16, max = 16)
-	private String licence;
+	private LocalTime departureTime;
+	
+	private LocalTime reachingTime;
+	
+	@NotBlank(message = "Car should not be null")
+	private String car;
+	
+	
+	@NotNull(message = "Price Should not be Null")
+	private double price;
 
-	@NotBlank(message = "Aadhar number should not be null")
-	@Size(min = 12, max = 12)	
-	private String aadharNo;
+	@NotNull(message = "Available Seats Should not be Null")
+	private int availableSeats;
 	
 	@JsonProperty(access = Access.READ_ONLY)
 	private Long driverIdId;
+	
 }
