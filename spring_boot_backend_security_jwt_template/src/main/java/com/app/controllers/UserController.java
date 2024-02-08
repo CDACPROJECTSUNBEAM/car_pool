@@ -2,14 +2,11 @@ package com.app.controllers;
 
 import java.util.List;
 
+import com.app.dtos.BookingDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.app.dtos.PublishRideDTO;
 import com.app.dtos.RegisterDTO;
@@ -38,9 +35,13 @@ public class UserController {
 		
 	}
 	
-	@PostMapping("/bookRide/{uId}")
-	public void bookARide(@PathVariable int uId) {
-		
+	@PostMapping("/bookRide/{uId}/{rId}")
+	public ResponseEntity<?> bookARide(@PathVariable Long uId, @PathVariable Long rId, @RequestBody BookingDTO bdto) {
+		try{
+			return new ResponseEntity<>(uService.bookARide(uId, rId, bdto), HttpStatus.CREATED);
+		}catch(Exception e){
+			return new ResponseEntity<>("Invalid number of seats...", HttpStatus.NOT_ACCEPTABLE);
+		}
 	}
 	
 	@GetMapping("/vehicleDetails/{dId}/{car}")

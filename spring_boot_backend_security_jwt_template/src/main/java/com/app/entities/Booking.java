@@ -1,9 +1,6 @@
 package com.app.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,16 +14,20 @@ import lombok.ToString;
 @ToString
 
 public class Booking extends BaseEntity {
-	
-	private boolean status;
-// 	We'll fetch it from rideId	
-//	double price;
-		
+
+	@Enumerated(EnumType.STRING)
+	private StatusType status;
+
+	@Column(nullable = false)
+	private double price;
+
+	@Column(nullable = false)
 	private int noOfSeats;
 	
 	@OneToOne
 //	One user can book one ride at a time
 	@JoinColumn(name = "ride_id")
+	// further we'll fetch all details of ride
 	private PublishRide rideId;
 	
 //	Logged in user
