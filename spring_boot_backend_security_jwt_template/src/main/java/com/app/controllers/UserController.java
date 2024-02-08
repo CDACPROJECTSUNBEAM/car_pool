@@ -2,15 +2,12 @@ package com.app.controllers;
 
 import java.util.List;
 
-import com.app.dtos.BookingDTO;
+import com.app.dtos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.app.dtos.PublishRideDTO;
-import com.app.dtos.RegisterDTO;
-import com.app.dtos.VehicleDTO;
 import com.app.entities.Vehicle;
 import com.app.services.DriverService;
 import com.app.services.UserService;
@@ -58,6 +55,21 @@ public class UserController {
 		System.out.println(dId);
 		System.out.println(car);
 		return new ResponseEntity<VehicleDTO>(dService.getVehicleByName(dId, car), HttpStatus.OK);
+	}
+
+	@PostMapping("/getRidesByCity")
+	public ResponseEntity<?> getRidesByStartAndEndCity(@RequestBody RideSearchDTO rsdto){
+		try{
+			List<PublishRideDTO> list = uService.getPublishRidesByCity(rsdto);
+
+			if(list.size() == 0){
+				return new ResponseEntity<>("No Rides Available..." , HttpStatus.OK);
+			}
+
+			return new ResponseEntity<>(list , HttpStatus.OK);
+		}catch(Exception e) {
+			return new ResponseEntity<>(e.getMessage() , HttpStatus.NOT_ACCEPTABLE);
+		}
 	}
 	
 }

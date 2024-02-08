@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import com.app.dtos.BookingDTO;
+import com.app.dtos.RideSearchDTO;
 import com.app.entities.Booking;
 import com.app.entities.PublishRide;
 import com.app.entities.StatusType;
@@ -78,6 +79,15 @@ public class UserServiceImpl implements UserService {
 			return list;
 		}
 		return null;
+	}
+
+	@Override
+	public List<PublishRideDTO> getPublishRidesByCity(RideSearchDTO rsdto) throws Exception {
+		if(rsdto.getStartCity().equalsIgnoreCase(rsdto.getEndCity())){
+			throw new Exception("Start and end city should not be same!!!");
+		}
+		List<PublishRideDTO> list = pRepo.findByStartCityAndEndCity(rsdto.getStartCity(), rsdto.getEndCity()).stream().map(m -> mapper.map(m, PublishRideDTO.class)).collect(Collectors.toList());
+		return list;
 	}
 
 }
