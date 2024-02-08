@@ -70,4 +70,14 @@ public class UserServiceImpl implements UserService {
 		return mapper.map(bRepo.save(bookingEntity), BookingDTO.class);
 	}
 
+	@Override
+	public List<BookingDTO> getAllBookings(Long uid) {
+		Register user = userRepo.findById(uid).orElseThrow();
+		if(user != null){
+			List<BookingDTO> list = bRepo.findByUserId(user).stream().map(m -> mapper.map(m, BookingDTO.class)).collect(Collectors.toList());
+			return list;
+		}
+		return null;
+	}
+
 }

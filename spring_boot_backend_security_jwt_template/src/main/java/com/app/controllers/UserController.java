@@ -30,9 +30,18 @@ public class UserController {
 		return new ResponseEntity<List<PublishRideDTO>>(uService.getAvailableRides(), HttpStatus.OK);
 	}
 	
-	@GetMapping("/getBookings")
-	public void getBookings() {
-		
+	@GetMapping("/getBookings/{uId}")
+	public ResponseEntity<?> getAllBookings(@PathVariable Long uId) {
+		List<BookingDTO> list = uService.getAllBookings(uId);
+		if(list == null){
+			return new ResponseEntity<>("Invalid User id..." , HttpStatus.NOT_ACCEPTABLE);
+		}
+
+		if(list.size() == 0){
+			return new ResponseEntity<>("No Booking found..." , HttpStatus.OK);
+		}
+
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
 	@PostMapping("/bookRide/{uId}/{rId}")
