@@ -2,6 +2,9 @@ package com.app.services;
 
 import javax.transaction.Transactional;
 
+import com.app.dtos.BookingDTO;
+import com.app.entities.Booking;
+import com.app.repositories.BookingRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,10 @@ import com.app.repositories.PublishRideRepository;
 import com.app.repositories.RegisterRepository;
 import com.app.repositories.VehicleRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Transactional
 public class DriverServiceImpl implements DriverService {
@@ -25,7 +32,11 @@ public class DriverServiceImpl implements DriverService {
 	
 	@Autowired
 	private PublishRideRepository publishRepo;
-	
+
+	@Autowired
+	private BookingRepository bRepo;
+
+
 	@Autowired
 	private ModelMapper mapper;
 	
@@ -68,6 +79,26 @@ public class DriverServiceImpl implements DriverService {
 		Register driverEntity = registerRepo.findById(id).orElseThrow();
 		Vehicle vehicle = vRepo.getVehicle(driverEntity, car);
 		return mapper.map(vehicle, VehicleDTO.class);
+	}
+
+	@Override
+	public List<BookingDTO> getAllBookingsByDriverId(Long dId) {
+		List<Booking> bookings = bRepo.findAll();
+		List<Booking> bookingReq = new ArrayList<>();
+
+		for(int i=0; i<bookings.size(); i++){
+			Long driverId = bookings.get(i).getRideId().getDriverId().getId();
+			if(Long.compare(driverId, dId) == 0){
+				bookingReq.add(bookings.get(i));
+			}
+		}
+
+		List<BookingDTO> list = bookingReq.stream().map(m -> mapper.map(m, BookingDTO.class)).collect(Collectors.toList());
+
+		//fetch specific user details by userid in above list : Todo
+		//fetch specific ride details by rideid in above list : Todo
+
+		return list;
 	}
 
 }

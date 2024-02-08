@@ -1,5 +1,6 @@
 package com.app.controllers;
 
+import com.app.dtos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.dtos.ApiResponse;
-import com.app.dtos.PublishRideDTO;
-import com.app.dtos.RegisterDTO;
-import com.app.dtos.VehicleDTO;
 import com.app.services.DriverService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/drivers")
@@ -40,9 +39,15 @@ public class DriverController {
 		return new ResponseEntity<RegisterDTO>(dService.getDriverDetails(dId), HttpStatus.OK);
 	}
 	
-	@GetMapping("/rideRequests")
-	public void getRideRequests() {
-		
+	@GetMapping("/rideRequests/{dId}")
+	public ResponseEntity<?> getRideRequests(@PathVariable Long dId) {
+		List<BookingDTO> list = dService.getAllBookingsByDriverId(dId);
+
+		if(list.isEmpty()){
+			return new ResponseEntity<>("No Ride Requested...", HttpStatus.OK);
+		}
+
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
 	
