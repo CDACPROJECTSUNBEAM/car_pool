@@ -20,13 +20,14 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.envers.Audited;
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-
+@Audited
 public class PublishRideDTO {
 
 	@JsonProperty(access = Access.READ_ONLY)

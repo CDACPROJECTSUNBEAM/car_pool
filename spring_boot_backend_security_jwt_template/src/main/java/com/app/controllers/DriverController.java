@@ -39,27 +39,27 @@ public class DriverController {
 		return new ResponseEntity<RegisterDTO>(dService.getDriverDetails(dId), HttpStatus.OK);
 	}
 	
-	@GetMapping("/rideRequests/{dId}")
-	public ResponseEntity<?> getRideRequests(@PathVariable Long dId) {
-		List<BookingDTO> list = dService.getAllBookingsByDriverId(dId);
-
-		if(list.isEmpty()){
-			return new ResponseEntity<>("No Ride Requested...", HttpStatus.OK);
-		}
-
-		return new ResponseEntity<>(list, HttpStatus.OK);
+//	@GetMapping("/rideRequests/{dId}")
+//	public ResponseEntity<?> getRideRequests(@PathVariable Long dId) {
+//		List<BookingDTO> list = dService.getAllBookingsByDriverId(dId);
+//
+//		if(list.isEmpty()){
+//			return new ResponseEntity<>("No Ride Requested...", HttpStatus.OK);
+//		}
+//
+//		return new ResponseEntity<>(list, HttpStatus.OK);
+//	}
+	
+	
+	
+	@PutMapping("/acceptRide/{bId}")
+	public ResponseEntity<BookingDTO> acceptRide(@PathVariable Long bId) {
+		return new ResponseEntity<>(dService.acceptRide(bId), HttpStatus.OK);
 	}
 	
-	
-	
-	@PutMapping("/acceptRide")
-	public void acceptRide() {
-		
-	}
-	
-	@PutMapping("/rejectRide")
-	public void rejectRide() {
-		
+	@PutMapping("/rejectRide/{bId}")
+	public ResponseEntity<BookingDTO> rejectRide(@PathVariable Long bId) {
+		return new ResponseEntity<>(dService.rejectRide(bId), HttpStatus.OK);
 	}
 	
 }

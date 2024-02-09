@@ -37,8 +37,8 @@ public class VehicleEntityDaoTest {
 	@Test
 	void testAddVehicles() {
 		List<Vehicle> list = List.of(
-				new Vehicle("Honda", "Verna", "123452789", LocalDate.of(2013, 4, 11) , "11111211", "1121111311",registerRepo.findById((long) 5).orElseThrow(null)),
-				new Vehicle("Suzuki", "Ertiga", "12345678", LocalDate.of(2013, 4, 11) , "111661111", "1121111111",registerRepo.findById((long)5).orElseThrow(null))
+				new Vehicle("Honda", "Verna", "123452789", LocalDate.of(2013, 4, 11) , "11111211", "1121111311",registerRepo.findById((long) 2).orElseThrow(null)),
+				new Vehicle("Suzuki", "Ertiga", "12345678", LocalDate.of(2013, 4, 11) , "111661111", "1121111111",registerRepo.findById((long)2).orElseThrow(null))
 				)
 				;
 		List<Vehicle> list2 = vehicleRepo.saveAll(list);

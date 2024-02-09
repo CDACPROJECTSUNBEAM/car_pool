@@ -44,8 +44,8 @@ public class PublishRideEntityDaoTest {
 	@Test
 	void testAddPublishRides() {
 		List<PublishRide> list = List.of(
-				new PublishRide("Pune", "Mumbai", LocalDate.of(2024, 2, 6), LocalDate.of(2024, 2, 6), LocalTime.of(12, 30, 0), LocalTime.of(20, 0, 0), "Honda", 5000.0, 5, registerRepo.findById((long) 5).orElseThrow()),
-				new PublishRide("Indore", "Jaipur", LocalDate.of(2024, 2, 8), LocalDate.of(2024, 2, 9), LocalTime.of(10, 0, 0), LocalTime.of(11, 30, 0), "Suzuki", 12000.0, 7, registerRepo.findById((long) 5).orElseThrow())
+				new PublishRide("Pune", "Mumbai", LocalDate.of(2024, 2, 6), LocalDate.of(2024, 2, 6), LocalTime.of(12, 30, 0), LocalTime.of(20, 0, 0), "Honda", 5000.0, 5, registerRepo.findById((long) 2).orElseThrow()),
+				new PublishRide("Indore", "Jaipur", LocalDate.of(2024, 2, 8), LocalDate.of(2024, 2, 9), LocalTime.of(10, 0, 0), LocalTime.of(11, 30, 0), "Suzuki", 12000.0, 7, registerRepo.findById((long) 2).orElseThrow())
 				)
 				;
 		List<PublishRide> list2 = publishRideRepo.saveAll(list);

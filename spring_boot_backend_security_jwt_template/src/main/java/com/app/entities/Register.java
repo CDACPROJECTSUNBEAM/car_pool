@@ -55,6 +55,9 @@ public class Register extends BaseEntity {
 	private RoleType role;
 	
 	private LocalDate dob;
+
+	@Column(name = "address", length = 100)
+	private String address;
 	
 	
 	
@@ -81,7 +84,7 @@ public class Register extends BaseEntity {
 	}
 
 	public Register(String fname, String lname, String email, String password, String contact, GenderType gender,
-			RoleType role, LocalDate dob) {
+			RoleType role, LocalDate dob, String address) {
 		this.fname = fname;
 		this.lname = lname;
 		this.email = email;
@@ -90,6 +93,7 @@ public class Register extends BaseEntity {
 		this.gender = gender;
 		this.role = role;
 		this.dob = dob;
+		this.address = address;
 	}
 
 

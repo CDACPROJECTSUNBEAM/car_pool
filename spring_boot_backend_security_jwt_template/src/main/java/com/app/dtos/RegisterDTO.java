@@ -69,5 +69,7 @@ public class RegisterDTO {
 	@Past  //reg date must be from Past
 	//def date format : yyyy-MM-dd  
 	private LocalDate dob;
+
+	private String address;
 	 
 }
