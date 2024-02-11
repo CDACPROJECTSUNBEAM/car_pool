@@ -10,5 +10,5 @@ import com.app.entities.Register;
 
 @Repository
 public interface RegisterRepository extends RevisionRepository<Register, Long, Long> ,  JpaRepository<Register, Long> {
-	Optional<Register> findByEmailAndPassword(String email, String password);
+	Optional<Register> findByEmail(String email);
 }	

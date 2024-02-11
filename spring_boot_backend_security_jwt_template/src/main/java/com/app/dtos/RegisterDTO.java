@@ -52,8 +52,8 @@ public class RegisterDTO {
 	private String email;
 	
 	@NotBlank
-	@Pattern(regexp="((?=.\\d)(?=.[a-z])(?=.[#@$]).{5,20})")
-	@JsonProperty(access = Access.WRITE_ONLY)
+	//@Pattern(regexp="((?=.\\d)(?=.[a-z])(?=.[#@$]).{5,20})")
+	//@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 	
 	@NotBlank

@@ -35,9 +35,13 @@ public class RegisterController {
 	}
 	
 	@PostMapping("/signin")
-	public ResponseEntity<RegisterDTO> signin(@RequestBody SigninDTO signinDto) {
+	public ResponseEntity<?> signin(@RequestBody SigninDTO signinDto) {
 		System.out.println(signinDto);
-		return new ResponseEntity<RegisterDTO>(rservice.signin(signinDto), HttpStatus.FOUND); 
+		RegisterDTO rdto = rservice.signin(signinDto);
+		if(rdto == null){
+			return new ResponseEntity<>("Invalid Credentials", HttpStatus.NOT_ACCEPTABLE);
+		}
+		return new ResponseEntity<>("Success", HttpStatus.FOUND);
 	}
 	
 	@GetMapping("/get")

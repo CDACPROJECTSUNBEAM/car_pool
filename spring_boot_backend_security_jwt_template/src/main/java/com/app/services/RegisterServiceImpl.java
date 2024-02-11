@@ -1,5 +1,6 @@
 package com.app.services;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,10 @@ public class RegisterServiceImpl implements RegisterService {
 	@Override
 	public RegisterDTO signup(RegisterDTO rdto) {
 		Register register =  mapper.map(rdto, Register.class);
+		String encodedEmail = Base64.getEncoder().encodeToString(register.getEmail().getBytes());
+		String encodedPassword = Base64.getEncoder().encodeToString(register.getPassword().getBytes());
+		register.setEmail(encodedEmail);
+		register.setPassword(encodedPassword);
 		rdao.save(register);
 		return mapper.map(register, RegisterDTO.class);
 	}
@@ -41,8 +46,23 @@ public class RegisterServiceImpl implements RegisterService {
 
 	@Override
 	public RegisterDTO signin(SigninDTO sdto) {
-		Register register = rdao.findByEmailAndPassword(sdto.getEmail(), sdto.getPassword()).orElseThrow();
-		return mapper.map(register, RegisterDTO.class);
+
+		String encodedEmail = Base64.getEncoder().encodeToString(sdto.getEmail().getBytes());
+		String encodedPassword = Base64.getEncoder().encodeToString(sdto.getPassword().getBytes());
+		sdto.setEmail(encodedEmail);
+		sdto.setPassword(encodedPassword);
+
+		Register register = rdao.findByEmail(sdto.getEmail()).get();
+
+		System.out.println("Name - " + register.getFname());
+
+		if(register != null){
+			if(register.getPassword().equals(sdto.getPassword())){
+				return mapper.map(register, RegisterDTO.class);
+			}
+		}
+
+		return null;
 	}
 
 	@Override
