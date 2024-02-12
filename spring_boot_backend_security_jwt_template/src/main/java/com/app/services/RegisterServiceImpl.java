@@ -28,9 +28,7 @@ public class RegisterServiceImpl implements RegisterService {
 	@Override
 	public RegisterDTO signup(RegisterDTO rdto) {
 		Register register =  mapper.map(rdto, Register.class);
-		String encodedEmail = Base64.getEncoder().encodeToString(register.getEmail().getBytes());
 		String encodedPassword = Base64.getEncoder().encodeToString(register.getPassword().getBytes());
-		register.setEmail(encodedEmail);
 		register.setPassword(encodedPassword);
 		rdao.save(register);
 		return mapper.map(register, RegisterDTO.class);
@@ -47,12 +45,10 @@ public class RegisterServiceImpl implements RegisterService {
 	@Override
 	public RegisterDTO signin(SigninDTO sdto) {
 
-		String encodedEmail = Base64.getEncoder().encodeToString(sdto.getEmail().getBytes());
 		String encodedPassword = Base64.getEncoder().encodeToString(sdto.getPassword().getBytes());
-		sdto.setEmail(encodedEmail);
 		sdto.setPassword(encodedPassword);
 
-		Register register = rdao.findByEmail(sdto.getEmail()).get();
+		Register register = rdao.findByEmail(sdto.getEmail()).orElseThrow();
 
 		System.out.println("Name - " + register.getFname());
 

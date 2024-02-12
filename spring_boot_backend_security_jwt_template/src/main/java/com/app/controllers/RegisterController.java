@@ -7,13 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.app.dtos.RegisterDTO;
 import com.app.dtos.SigninDTO;
@@ -23,6 +17,7 @@ import com.app.services.RegisterService;
 
 @RestController
 @RequestMapping("/api/auth")
+@CrossOrigin(origins = "http://localhost:3000")
 public class RegisterController {
 	@Autowired
 	private RegisterService rservice;
@@ -41,7 +36,7 @@ public class RegisterController {
 		if(rdto == null){
 			return new ResponseEntity<>("Invalid Credentials", HttpStatus.NOT_ACCEPTABLE);
 		}
-		return new ResponseEntity<>("Success", HttpStatus.FOUND);
+		return new ResponseEntity<>(rdto, HttpStatus.FOUND);
 	}
 	
 	@GetMapping("/get")
